@@ -1,0 +1,45 @@
+version: "3.8"
+
+services:
+  mongodb:
+    image: mongo:7.0
+    container_name: ledger-mongodb
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: admin
+      MONGO_INITDB_ROOT_PASSWORD: password
+      MONGO_INITDB_DATABASE: ledger
+    volumes:
+      - mongodb_data:/data/db
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+    networks:
+      - ledger-network
+
+  # ledger-api:
+  #   build:
+  #     context: .
+  #     dockerfile: Dockerfile
+  #   container_name: ledger-api
+  #   restart: unless-stopped
+  #   ports:
+  #     - "8081:8081"
+  #   environment:
+  #     MONGO_URI: mongodb://admin:password@mongodb:27017/ledger?authSource=admin
+  #     DATABASE_NAME: ledger
+  #     TRANSACTION_COLLECTION: transactions
+  #     BALANCE_COLLECTION: balances
+  #     SERVER_PORT: 8081
+  #   depends_on:
+  #     - mongodb
+  #   networks:
+  #     - ledger-network
+
+volumes:
+  mongodb_data:
+    driver: local
+
+networks:
+  ledger-network:
+    driver: bridge
