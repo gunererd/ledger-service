@@ -51,13 +51,3 @@ func (r *BalanceRepository) UpdateTotalCommission(ctx context.Context, userId st
 	return err
 }
 
-func (r *BalanceRepository) CreateBalance(ctx context.Context, userId string, amount float32) error {
-
-	balance := types.Balance{
-		UserId: userId,
-		Amount: amount,
-	}
-
-	_, err := r.collection.InsertOne(ctx, balance)
-	return err
-}

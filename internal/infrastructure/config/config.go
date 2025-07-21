@@ -8,7 +8,6 @@ type Config struct {
 	TransactionCollection string
 	BalanceCollection     string
 	ServerPort            string
-	QueueBufferSize       int
 }
 
 func LoadFromEnv() *Config {
@@ -18,7 +17,6 @@ func LoadFromEnv() *Config {
 		TransactionCollection: getEnv("TRANSACTION_COLLECTION", "transactions"),
 		BalanceCollection:     getEnv("BALANCE_COLLECTION", "balances"),
 		ServerPort:            getEnv("SERVER_PORT", "8081"),
-		QueueBufferSize:       100,
 	}
 }
 

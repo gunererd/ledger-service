@@ -7,7 +7,6 @@ import (
 
 type TransactionRepository interface {
 	Save(ctx context.Context, t types.Transaction) (string, error)
-	GetOne(ctx context.Context, id string) (types.Transaction, error)
 	GetManyForCustomer(ctx context.Context, id string) ([]types.Transaction, error)
 	GetManyForRestaurant(ctx context.Context, id string) ([]types.Transaction, error)
 }
@@ -16,5 +15,4 @@ type BalanceRepository interface {
 	GetBalance(ctx context.Context, userId string) (types.Balance, error)
 	UpdateBalance(ctx context.Context, userId string, amount float32) error
 	UpdateTotalCommission(ctx context.Context, userId string, amount float32) error
-	CreateBalance(ctx context.Context, userId string, amount float32) error
 }

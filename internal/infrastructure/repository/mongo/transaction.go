@@ -35,17 +35,6 @@ func (r *TransactionRepository) Save(ctx context.Context, t types.Transaction) (
 	return t.Id, nil
 }
 
-func (r *TransactionRepository) GetOne(ctx context.Context, id string) (types.Transaction, error) {
-	var transaction types.Transaction
-	err := r.collection.FindOne(ctx, bson.M{"id": id}).Decode(&transaction)
-	if err != nil {
-		if err == mongo.ErrNoDocuments {
-			return types.Transaction{}, nil // Not found is OK
-		}
-		return types.Transaction{}, err // Actual error
-	}
-	return transaction, nil
-}
 
 func (r *TransactionRepository) GetManyForCustomer(ctx context.Context, id string) ([]types.Transaction, error) {
 	opts := options.Find().SetSort(bson.D{{"created_at", -1}})
